@@ -13,6 +13,13 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * Свойства, передаваемые в компонент для отображения сообщения.
+ * @typedef {Object} Props
+ * @property {string} username - Имя пользователя, отправившего сообщение.
+ * @property {string} text - Текст сообщения.
+ * @property {Date} date - Дата и время отправки сообщения.
+ */
 const props = defineProps<{
 	username: string
 	text: string

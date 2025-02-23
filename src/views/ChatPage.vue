@@ -36,8 +36,17 @@ const router = useRouter()
 
 const username: Ref<string> = ref('')
 const messages: Ref<IMessage[]> = ref([])
+
+// Создание экземпляра сервиса SignalR для обработки связи с сервером
 const signalRService: SignalRService = new SignalRService()
 
+/**
+ * При onMounted компонента:
+ * - Проверяет сохраненный никнейм в Preferences.
+ * - Если никнейм найден, устанавливает его в состояние.
+ * - Если никнейм не найден, перенаправляет пользователя на страницу авторизации.
+ * - Инициализирует подключение к SignalR.
+ */
 onMounted(async () => {
 	const nickname = await Preferences.get({ key: ConstService.nickname })
 
@@ -50,10 +59,21 @@ onMounted(async () => {
 	signalRService.onStartConnection()
 })
 
+/**
+ * При onBeforeUnmount компонента:
+ * - Останавливает соединение с SignalR.
+ */
 onBeforeUnmount(() => {
 	signalRService.onStopConnection()
 })
 
+/**
+ * Обработчик отправки сообщения.
+ * - Добавляет новое сообщение в список сообщений.
+ * - Отправляет сообщение через SignalR.
+ *
+ * @param {string} message - Текст отправляемого сообщения.
+ */
 const onSendMessage = (message: string): void => {
 	messages.value.push({
 		user: username.value,

@@ -17,6 +17,13 @@ const message: Ref<string> = ref('')
 
 const emits = defineEmits(['on-send'])
 
+/**
+ * Обработчик отправки сообщения.
+ * - Отправляет введенное сообщение через событие `on-send`.
+ * - Очищает поле ввода после отправки.
+ *
+ * @returns {void}
+ */
 const onSend = (): void => {
 	emits('on-send', message.value)
 

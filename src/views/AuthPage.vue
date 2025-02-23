@@ -37,6 +37,13 @@ const router = useRouter()
 
 const nickname: Ref<string> = ref('')
 
+/**
+ * Обработчик для сохранения никнейма.
+ * - Сохраняет введенный никнейм в Preferences.
+ * - Перенаправляет пользователя на страницу чата.
+ *
+ * @returns {Promise<void>}
+ */
 const onSave = async (): Promise<void> => {
 	await Preferences.set({
 		key: ConstService.nickname,
