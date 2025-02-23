@@ -1,0 +1,7 @@
+{
+  "name": "real-time-chat",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
