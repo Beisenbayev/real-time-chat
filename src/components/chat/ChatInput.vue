@@ -35,5 +35,6 @@ const onSend = (): void => {
 .chat-input {
 	display: flex;
 	align-items: center;
+	border-top: 1px solid #b3b3b3;
 }
 </style>

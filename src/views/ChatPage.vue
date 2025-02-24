@@ -57,6 +57,7 @@ onMounted(async () => {
 	}
 
 	signalRService.onStartConnection()
+	signalRService.onMessageReceived(onReceiveMessage)
 })
 
 /**
@@ -69,19 +70,27 @@ onBeforeUnmount(() => {
 
 /**
  * Обработчик отправки сообщения.
- * - Добавляет новое сообщение в список сообщений.
  * - Отправляет сообщение через SignalR.
  *
  * @param {string} message - Текст отправляемого сообщения.
  */
 const onSendMessage = (message: string): void => {
+	signalRService.onSendMessage(username.value, message)
+}
+
+/**
+ * Обработчик получения сообщения.
+ * - Добавляет новое сообщение в список сообщений.
+ *
+ * @param {string} user - Имя пользователя, отправившего сообщение.
+ * @param {string} message - Текст отправляемого сообщения.
+ */
+const onReceiveMessage = (user: string, message: string): void => {
 	messages.value.push({
-		user: username.value,
+		user,
 		message,
 		createdAt: new Date(),
 	})
-
-	signalRService.onSendMessage(username.value, message)
 }
 </script>
 

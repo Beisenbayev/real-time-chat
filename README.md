@@ -1,6 +1,6 @@
 # Real-Time Chat Application (Ionic Vue 3 + SignalR)
 
-Это приложение для обмена сообщениями в реальном времени, использующее **Ionic Vue 3**
+Это приложение для обмена сообщениями в реальном времени, использующее **Ionic + Vue 3**
 
 ## Требования
 
@@ -8,7 +8,48 @@
 -   **Ionic CLI** (версия 6 и выше)
 -   **npm** (для управления зависимостями)
 
-## Установка и запуск
+## Установка и запуск серверной части
+
+### 1. Клонирование репозитория
+
+Необходимо клонировать репозиторий на локальную машину:
+
+```bash
+git clone https://github.com/nicksuomi/AzureSignalRService.git
+```
+
+### 2. Настройка CORS
+
+Добавьте следующий код в файл Program.cs для настройки CORS:
+
+<pre>
+// Add CORS services ()
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", policy =>
+    {
+        policy.WithOrigins("http://localhost:8100")
+            .AllowCredentials()  // Allow credentials
+            .AllowAnyMethod()  // Allow any HTTP method
+            .AllowAnyHeader();  // Allow any header
+    });
+});
+
+// Enable CORS
+app.UseCors("AllowAllOrigins");
+</pre>
+
+### 3. Запуск
+
+Для запуска серверной части выполните скрипт через команду:
+
+```bash
+./run.sh
+```
+
+Это запустит первый клиент по адресу http://localhost:3209/messenger/.
+
+## Установка и запуск клиентской части
 
 ### 1. Установка Ionic CLI
 

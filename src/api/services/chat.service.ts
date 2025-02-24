@@ -46,9 +46,7 @@ class SignalRService {
 	 * @public
 	 * @method
 	 */
-	public onMessageReceived(
-		callback: (user: string, message: string, createdAt: Date) => void
-	): void {
+	public onMessageReceived(callback: (user: string, message: string) => void): void {
 		if (this.connection) {
 			this.connection.on('ReceiveMessage', callback)
 		}
@@ -64,7 +62,7 @@ class SignalRService {
 	public onSendMessage(user: string, message: string): void {
 		if (this.connection) {
 			this.connection
-				.invoke('SendMessage', user, message, new Date())
+				.invoke('SendMessage', user, message)
 				.catch((err) => console.error('chat sendMessage error: ', err))
 		}
 	}
